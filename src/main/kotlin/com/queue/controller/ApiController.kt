@@ -105,7 +105,7 @@ class ApiController {
         if (queueService != null) {
             if (queueService.clients.size > 0) {
                 val client = queueService.add(window)
-                return ResponseEntity.ok("{'client': $client}")
+                return ResponseEntity.ok("{\"client\": $client}")
             } else {
                 return ResponseEntity.noContent().build()
             }
