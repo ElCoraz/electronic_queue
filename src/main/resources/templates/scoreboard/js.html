@@ -4,9 +4,6 @@
         /*<![CDATA[*/
         $( document ).ready(function() {
             /*************************************************************/
-            //let source;
-            //const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            /*************************************************************/
             const queue = new Map();
 
             for (let i = 1; i <= 1000; i++) {
@@ -18,7 +15,7 @@
             });
             /*************************************************************/
             function play(window, client) {
-                /*const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
                 let source = audioCtx.createBufferSource();
 
@@ -43,39 +40,10 @@
                         function(error){ console.log("Error with decoding audio data" + error.err); });
                 };
 
-                request.send();*/
+                request.send();
             }
             /*************************************************************/
-            /*setInterval(function() {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-                let source = audioCtx.createBufferSource();
-
-                const request = new XMLHttpRequest();
-
-                request.open('GET', '/api/play?window=4&client=20', true);
-
-                request.responseType = 'arraybuffer';
-
-                request.onload = function() {
-                    const audioData = request.response;
-
-                    audioCtx.decodeAudioData(audioData, function(buffer) {
-                            source.buffer = buffer;
-
-                            source.connect(audioCtx.destination);
-
-                            source.loop = false;
-
-                            source.start(0);
-                        },
-                        function(error){ console.log("Error with decoding audio data" + error.err); });
-                };
-
-                request.send();
-            }, 5000);*/
-            /*************************************************************/
-            /*setInterval(function() {
+            setInterval(function() {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
                 let source = audioCtx.createBufferSource();
@@ -102,7 +70,7 @@
                 };
 
                 request.send();
-            }, 5000);*/
+            }, 5000);
             /*************************************************************/
             setInterval(function() {
                 $.ajax({
