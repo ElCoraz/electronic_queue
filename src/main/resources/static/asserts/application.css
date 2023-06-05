@@ -1,0 +1,173 @@
+table td {
+    vertical-align: middle;
+}
+
+table tr {
+    height: 75px;
+}
+
+table, tbody, th, td {
+    border: solid 5px;
+}
+
+form {
+    width: 100%;
+    font-size: 200%;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.captionTable {
+    width: 50%;
+    font-size: 200%;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.rowTable {
+    font-size: 200%;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.centerImg {
+    top: 0;
+    left: calc(100% / 2);
+    right: 0;
+    width: auto;
+    bottom: 0;
+    margin: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+}
+
+.carousel {
+    top: 0;
+    left: calc(100% / 2);
+    right: 0;
+    width: auto;
+    bottom: 0;
+    margin: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+}
+
+.jumbotron {border-radius: 0;margin-bottom: 0;}
+
+.jumbotron.df-bg-primary {
+    background-color: #083386;
+}
+.df-switch {
+    margin-top: 20px;
+    padding: 2rem;
+    text-align: center;
+}
+.btn-toggle {
+    top: 50%;
+    transform: translateY(-50%);
+}
+.btn-toggle {
+    margin: 0 4rem;
+    padding: 0;
+    position: relative;
+    border: none;
+    height: 1.5rem;
+    width: 5rem;
+    border-radius: 1.5rem;
+    color: #6b7381;
+    background: #0885da;
+}
+.btn-toggle:focus,
+.btn-toggle.focus,
+.btn-toggle:focus.active,
+.btn-toggle.focus.active {
+    outline: none;
+}
+.btn-toggle:before,
+.btn-toggle:after {
+    line-height: 1.5rem;
+    width: 4rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: absolute;
+    bottom: 0;
+    transition: opacity 0.25s;
+}
+.btn-toggle:before {
+    content: 'РУССКИЙ';
+    left: -5rem;
+    color: #109fff;
+}
+.btn-toggle:after {
+    content: 'КАЗАХСКИЙ';
+    right: -5rem;
+    opacity: 0.5;
+    color: #F47280;
+}
+.btn-toggle > .inner-handle {
+    border-radius: 13px;
+    width: 65px;
+    height: 13px;
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    background-color: #0f71bd;
+    box-shadow: inset 1px 1px 2px -1px black;
+}
+.btn-toggle.active > .inner-handle {
+    background-color: #BD4053;
+}
+.btn-toggle > .handle:before {
+    content: "";
+    position: absolute;
+    height: 34px;
+    width: 34px;
+    top: 35%;
+    left: 11px;
+    background-image: radial-gradient(circle at center, #0785da 5px, transparent 5px);
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+}
+.btn-toggle.active > .handle:before {
+    background-image: radial-gradient(circle at center, #F47280 5px, transparent 5px);
+}
+.btn-toggle > .handle {
+    position: absolute;
+    top: -0.2875rem;
+    left: 0.3875rem;
+    width: 2.125rem;
+    height: 2.125rem;
+    border-radius: 1.125rem;
+    background: #fff;
+    transition: left 0.25s;
+    border: 1px solid #ccc;
+}
+.btn-toggle.active {
+    transition: background-color 0.25s;
+}
+.btn-toggle.active > .handle {
+    left: 2.4175rem;
+    transition: left 0.25s;
+}
+.btn-toggle.active:before {
+    opacity: 0.5;
+}
+.btn-toggle.active:after {
+    opacity: 1;
+    color: #F47280;
+}
+.btn-toggle.active {
+    background-color: #F47280;
+}
+
+.productDay {
+    margin-top: calc(100% / 2);
+    margin-left: calc(100% / 4);
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <!-- -------------------------------------------------------------- -->
+    <link rel="icon" href="/images/favicon.png">
+    <!-- -------------------------------------------------------------- -->
+    <link rel="stylesheet" href="/asserts/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" media="print" href="/asserts/print.css">
+    <!-- -------------------------------------------------------------- -->
+    <title>Печать</title>
+    <!-- -------------------------------------------------------------- -->
+</head>
+<body>
+    <div class="container">
+        <!-- ---------------------------------------------------------- -->
+        <div class="row">
+            <div class="col-4">
+                <img id="logo" class="rounded mx-auto d-block" src="/images/logo.png">
+            </div>
+        </div>
+        <!-- ---------------------------------------------------------- -->
+        <div class="row">
+            <div class="col-4" style="text-align: center; text-transform: uppercase;">
+                <th:block th:if="${lang == 'ru'}">
+                    Ваш номер
+                </th:block>
+                <th:block th:if="${lang == 'kz'}">
+                    Бөлмеңіздің нөмірі
+                </th:block>
+            </div>
+        </div>
+        <!-- ---------------------------------------------------------- -->
+        <div class="row">
+            <div class="col-4" style="text-align: center; text-transform: uppercase; font-size: 200%; font-weight: bold;" th:text="${{number}}"></div>
+        </div>
+        <!-- ---------------------------------------------------------- -->
+        <div class="row">
+            <div class="col-4" style="text-align: left; text-transform: uppercase; font-size: 80%;" th:text="${{service}}"></div>
+        </div>
+        <!-- ---------------------------------------------------------- -->
+        <div class="row">
+            <div class="col-4" style="text-align: left; text-transform: uppercase; font-size: 80%;" th:text="${{datetime}}"></div>
+        </div>
+        <!-- ---------------------------------------------------------- -->
+        <div class="row">
+            <div class="col-4"  style="text-align: center; text-transform: uppercase; font-size: 80%; font-weight: bold;">
+                <th:block th:if="${lang == 'ru'}">
+                    Ждите вызова на табло
+                </th:block>
+                <th:block th:if="${lang == 'kz'}">
+                    Таблодағы қоңырауды күтіңіз
+                </th:block>
+            </div>
+        </div>
+        <!-- ---------------------------------------------------------- -->
+    </div>
+</body>
+</html>

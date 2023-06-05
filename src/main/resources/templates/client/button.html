@@ -1,0 +1,30 @@
+<!-- ----------------------------------------------- -->
+<th:block th:each="button: ${buttons}" xmlns:th="">
+    <div class="row up" style="margin: 10px;">
+        <div class="col w-100">
+            <th:block th:if="${button.child.length == 0}">
+                <form th:action="@{/button?lang=__${lang}__&value=__${button.id}__}" method="post">
+                    <button type="submit" class="btn btn-primary" th:style="${{button.style}}" th:utext="${{button.title.get(lang)}}"></button>
+                </form>
+            </th:block>
+            <th:block th:if="${button.child.length > 0}">
+                <button class="btn btn-primary main" th:id="${button.id}" th:style="${{button.style}}" th:utext="${{button.title.get(lang)}}"></button>
+            </th:block>
+        </div>
+    </div>
+    <th:block th:each="child: ${button.child}">
+        <div class="row down" th:data-id="${button.id}" style="margin: 10px; visibility: hidden; display: none;">
+            <div class="col w-100">
+                <form th:action="@{/button?lang=__${lang}__&value=__${child.id}__}" method="post">
+                    <button type="submit" class="btn btn-primary" th:style="${{child.style}}" th:utext="${{child.title.get(lang)}}"></button>
+                </form>
+            </div>
+        </div>
+    </th:block>
+    <div class="row down" th:data-id="${button.id}" style="margin: 10px; visibility: hidden; display: none;" th:if="${button.child.length > 0}">
+        <div class="col w-100">
+            <button class="btn btn-primary" th:style="${{back.style}}" th:utext="${{back.title.get(lang)}}" onClick="window.location.reload();"></button>
+        </div>
+    </div>
+</th:block>
+<!-- ----------------------------------------------- -->

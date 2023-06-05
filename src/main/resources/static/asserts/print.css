@@ -1,0 +1,16 @@
+@media print {
+
+    @page {
+        size: B6;
+        margin: 0mm;
+    }
+
+    html {
+        background-color: #FFFFFF;
+        margin: 0px;
+    }
+    body {
+        border: solid 1px blue;
+        margin: 10mm 15mm 10mm 15mm;
+    }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
+    <head>
+        <!-- -------------------------------------------------------------- -->
+        <link rel="icon" href="/images/favicon.png">
+        <!-- -------------------------------------------------------------- -->
+        <link rel="stylesheet" href="/asserts/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="/asserts/application.css">
+        <!-- -------------------------------------------------------------- -->
+        <title>Главное окно</title>
+    </head>
+    <body>
+        <div class="container">
+            <!-- ---------------------------------------------------------- -->
+            <div class="row">
+                <div class="col w-100">
+                    <img id="logo" style="display: inline; width: 400px; height: 150px;" src="/images/logo.png">
+                </div>
+            </div>
+            <!-- ---------------------------------------------------------- -->
+            <div class="row rowBg align-items-start">
+                <div class="col-6">
+                    <!-- -------------------------------------------------- -->
+                    <th:block th:insert="scoreboard/table"></th:block>
+                    <!-- -------------------------------------------------- -->
+                </div>
+                <div class="col-6">
+                    <!-- -------------------------------------------------- -->
+                    <th:block th:insert="scoreboard/slider"></th:block>
+                    <th:block th:insert="scoreboard/parts"></th:block>
+                    <!-- -------------------------------------------------- -->
+                </div>
+            </div>
+            <!-- ---------------------------------------------------------- -->
+            <input type="hidden" id="length" th:value="${{length}}" />
+            <!-- ---------------------------------------------------------- -->
+        </div>
+        <!-- -------------------------------------------------------------- -->
+        <script src="/asserts/jquery/jquery-3.6.3.js"></script>
+        <script src="/asserts/bootstrap/js/bootstrap.js"></script>
+        <!-- -------------------------------------------------------------- -->
+        <th:block th:insert="scoreboard/js"></th:block>
+        <!-- -------------------------------------------------------------- -->
+    </body>
+</html>

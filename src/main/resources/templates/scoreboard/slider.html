@@ -1,0 +1,11 @@
+<!-- ----------------------------------------------- -->
+<th:block xmlns:th="">
+    <div id="carousel" class="carousel slide carousel-fade" th:style="${slider}" data-bs-ride="carousel">
+        <th:block th:each="i: ${#numbers.sequence(0, images.length - 1)}">
+            <div th:class="${i} == 0 ? 'carousel-item active':'carousel-item'" th:data-bs-interval="${interval * 1000}">
+                <img class="d-block w-100" style="width: 500px; height: 500px;" th:src="'/images/slider/' + ${images[i]}" th:alt="${images[i]}">
+            </div>
+        </th:block>
+    </div>
+</th:block>
+<!-- ----------------------------------------------- -->

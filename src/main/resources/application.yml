@@ -1,0 +1,55 @@
+########################################################################################################################
+spring:
+  thymeleaf:
+    cache: false
+    check-template: true
+    check-template-location: true
+    enabled: true
+    encoding: UTF-8
+    mode: HTML
+    prefix: file:src/main/resources/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+  devtools:
+    livereload:
+      enabled: true
+    add-properties: true
+  resources:
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+      enabled: true
+      location: ${java.io.tmpdir}
+  session:
+    store-type: none
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/
+      cache:
+        period: 0
+  cache:
+    type: NONE
+  main:
+    allow-bean-definition-overriding: true
+  ########################################################################################################################
+server:
+  port: 9090
+  servlet:
+    session:
+      cookie:
+        http-only: true
+########################################################################################################################
+logging:
+  level:
+    root: info
+  file:
+    name: logs/application.log
+########################################################################################################################
+settings:
+  file:
+    name: settings/settings.json
+  version: 1.0.0
+########################################################################################################################

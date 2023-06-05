@@ -1,0 +1,48 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
+    <head>
+        <!-- -------------------------------------------------------------- -->
+        <link rel="icon" href="/images/favicon.png">
+        <!-- -------------------------------------------------------------- -->
+        <link rel="stylesheet" href="/asserts/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="/asserts/application.css">
+        <!-- -------------------------------------------------------------- -->
+        <title>Клиентское окно</title>
+    </head>
+    <body>
+        <div class="container">
+            <!-- ---------------------------------------------------------- -->
+            <div class="row">
+                <div class="col w-100">
+                    <img id="logo" class="rounded mx-auto d-block" src="/images/logo.png">
+                </div>
+            </div>
+            <!-- ---------------------------------------------------------- -->
+            <div class="row">
+                <div class="col-6" style="text-align: center;">
+                    <a href="/client?lang=ru" class="btn btn-outline-secondary" style="min-width: 200px;">
+                        <img style="width: 50px; height: 25px;" src="/images/russia.png">
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        <span style="color: black">РУССКИЙ</span>
+                    </a>
+                </div>
+                <div class="col-6" style="text-align: center;">
+                    <a href="/client?lang=kz" class="btn btn-outline-secondary" style="min-width: 200px;">
+                        <img style="width: 50px; height: 25px;" src="/images/kazakhstan.png">
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        <span style="color: black">ҚАЗАҚША</span>
+                    </a>
+                </div>
+            </div>
+            <!-- ---------------------------------------------------------- -->
+            <th:block th:insert="client/button"></th:block>
+            <!-- ---------------------------------------------------------- -->
+        </div>
+        <!-- -------------------------------------------------------------- -->
+        <script src="/asserts/jquery/jquery-3.6.3.js"></script>
+        <script src="/asserts/bootstrap/js/bootstrap.js"></script>
+        <!-- -------------------------------------------------------------- -->
+        <th:block th:insert="client/js"></th:block>
+        <!-- -------------------------------------------------------------- -->
+    </body>
+</html>

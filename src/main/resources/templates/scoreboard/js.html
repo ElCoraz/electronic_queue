@@ -1,0 +1,226 @@
+<!-- -------------------------------------------------------------- -->
+<th:block xmlns:th="">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $( document ).ready(function() {
+            /*************************************************************/
+            //let source;
+            //const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            /*************************************************************/
+            const queue = new Map();
+
+            for (let i = 1; i <= 1000; i++) {
+                queue.set(i, 0);
+            }
+            /*************************************************************/
+            $("#logo").on( "click", function() {
+                window.location.reload();
+            });
+            /*************************************************************/
+            function play(window, client) {
+                /*const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+                let source = audioCtx.createBufferSource();
+
+                const request = new XMLHttpRequest();
+
+                request.open('GET', '/api/play?window=' + window + '&client=' + client, true);
+
+                request.responseType = 'arraybuffer';
+
+                request.onload = function() {
+                    const audioData = request.response;
+
+                    audioCtx.decodeAudioData(audioData, function(buffer) {
+                            source.buffer = buffer;
+
+                            source.connect(audioCtx.destination);
+
+                            source.loop = false;
+
+                            source.start(0);
+                        },
+                        function(error){ console.log("Error with decoding audio data" + error.err); });
+                };
+
+                request.send();*/
+            }
+            /*************************************************************/
+            /*setInterval(function() {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+                let source = audioCtx.createBufferSource();
+
+                const request = new XMLHttpRequest();
+
+                request.open('GET', '/api/play?window=4&client=20', true);
+
+                request.responseType = 'arraybuffer';
+
+                request.onload = function() {
+                    const audioData = request.response;
+
+                    audioCtx.decodeAudioData(audioData, function(buffer) {
+                            source.buffer = buffer;
+
+                            source.connect(audioCtx.destination);
+
+                            source.loop = false;
+
+                            source.start(0);
+                        },
+                        function(error){ console.log("Error with decoding audio data" + error.err); });
+                };
+
+                request.send();
+            }, 5000);*/
+            /*************************************************************/
+            /*setInterval(function() {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+                let source = audioCtx.createBufferSource();
+
+                const request = new XMLHttpRequest();
+
+                request.open('GET', '/api/repeat', true);
+
+                request.responseType = 'arraybuffer';
+
+                request.onload = function() {
+                    const audioData = request.response;
+
+                    audioCtx.decodeAudioData(audioData, function(buffer) {
+                            source.buffer = buffer;
+
+                            source.connect(audioCtx.destination);
+
+                            source.loop = false;
+
+                            source.start(0);
+                        },
+                        function(error){ console.log("Error with decoding audio data" + error.err); });
+                };
+
+                request.send();
+            }, 5000);*/
+            /*************************************************************/
+            setInterval(function() {
+                $.ajax({
+                    url: "/api/reload/get/scoreboard"
+                }).done(function(data, textStatus, xhr) {
+                    if (xhr.status === 200) {
+                        window.location.reload();
+                    }
+                }).fail(function (jqXHR, exception) { });
+            }, 5000);
+            /*************************************************************/
+            $("#carousel").css('visibility', 'hidden');
+            $("#productDay").css('visibility', 'hidden');
+            /*************************************************************/
+            setInterval(function() {
+                $.ajax({
+                    url: "/api/list"
+                }).done(function(result) {
+                    let i = 1;
+                    for (i = 1; i <= $("#length").val(); i++) {
+                        $("#" + i).children("th").text("");
+                        $("#" + i).children("td").text("");
+                    }
+                    i = 1;
+                    Object.keys(result).forEach(function(k) {
+                        $("#" + i).children("th").text(k);
+                        $("#" + i).children("td").text(result[k]);
+
+                        const j = i;
+                        const index = parseInt(k);
+                        const value = result[k];
+
+                        if (queue.get(parseInt(k)) !== result[k]) {
+                            play(index, value);
+
+                            const Blink = setInterval(function() {
+                                $("#" + j).children("th").fadeOut(500);
+                                $("#" + j).children("th").fadeIn(500);
+
+                                $("#" + j).children("td").fadeOut(500);
+                                $("#" + j).children("td").fadeIn(500);
+
+                                $("#" + j).children("th").css('color', 'white');
+                                $("#" + j).children("th").css('border', 'solid 5px;');
+                                $("#" + j).children("th").css('border-color', 'black');
+                                $("#" + j).children("th").css('background-color', 'red');
+
+                                $("#" + j).children("td").css('color', 'white');
+                                $("#" + j).children("td").css('border', 'solid 5px;');
+                                $("#" + j).children("td").css('border-color', 'black');
+                                $("#" + j).children("td").css('background-color', 'red');
+
+                                const blinkRemove = setInterval(function() {
+                                    $("#" + j).children("th").finish().fadeIn();
+                                    $("#" + j).children("td").finish().fadeIn();
+
+                                    $("#" + j).children("th").css('color', 'black');
+                                    $("#" + j).children("th").css('border', 'solid 5px;');
+                                    $("#" + j).children("th").css('border-color', 'black');
+                                    $("#" + j).children("th").css('background-color', 'white');
+
+                                    $("#" + j).children("td").css('color', 'black');
+                                    $("#" + j).children("td").css('border', 'solid 5px;');
+                                    $("#" + j).children("td").css('border-color', 'black');
+                                    $("#" + j).children("td").css('background-color', 'white');
+
+                                    clearTimeout(blinkRemove);
+                                    clearTimeout(Blink);
+                                }, 15000);
+                            }, 1000);
+
+                            queue.set(index, value);
+                        }
+
+                        i++;
+                    })
+                }).fail(function (jqXHR, exception) { });
+            }, 5000);
+            /*************************************************************/
+            setInterval(function() {
+                $.ajax({
+                    url: "/api/list/clear"
+                }).done(function(data, textStatus, xhr) {
+                    if (xhr.status === 200) {
+                        for (let i = 1; i <= $("#length").val(); i++) {
+                            $("#" + i).children("th").text("");
+                            $("#" + i).children("td").text("");
+                        }
+                    }
+                }).fail(function (jqXHR, exception) { });
+            }, 5000);
+            /*************************************************************/
+            setInterval(function() {
+                $.ajax({
+                    url: "/api/productDay"
+                }).done(function(result) {
+                    if (result.code === 200) {
+                        if (result.message.length !== 0) {
+                            $("#carousel").css('visibility', 'hidden');
+                            $("#productDay").css("visibility", "");
+                            result.message.forEach((element) => {
+                                $("#new").html("₸&nbsp;" + element.new + "&nbsp;тг");
+                                $("#old").html("₸&nbsp;" + element.price + "&nbsp;тг");
+                                $("#name").html(element.name);
+                            });
+                        } else {
+                            $("#carousel").css("visibility","");
+                            $("#productDay").css('visibility', 'hidden')
+                        }
+                    }
+                }).fail(function (jqXHR, exception) {
+                    $("#carousel").css("visibility","");
+                    $("#productDay").css('visibility', 'hidden')
+                });
+            }, 5000);
+            /*************************************************************/
+        });
+        /*]]>*/
+    </script>
+</th:block>
+<!-- -------------------------------------------------------------- -->

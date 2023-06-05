@@ -1,0 +1,93 @@
+{
+  "table": "margin-top: calc(100% / 7); margin-left: calc(100% / 8);",
+  "slider": "width: 500px; height: 500px; margin-top: calc(100% / 8); margin-left: calc(100% / 8);",
+  "length": 5,
+  "interval": 15,
+  "enterprise": {
+    "url": "http://192.168.0.136/torgupr/hs/market/productDayQueue",
+    "username": "admin",
+    "password": "4217777"
+  },
+  "back": {
+    "style" : "width: 100%; height: calc(100% / 5); max-height: 100px; font-size: 200%; text-align: center; text-transform: uppercase;",
+    "title": {
+      "ru": "НАЗАД",
+      "kz": "КЕРІ"
+    }
+  },
+  "check": {
+    "delay": 5,
+    "style": "font-size: 400%; text-align: center; text-transform: uppercase; font-weight: bold;",
+    "title": {
+      "ru": "<span style='color: green''>ПОЖАЛУЙСТА ВОЗЬМИТЕ ТАЛОН</span><br>ВАШ НОМЕР</br>__NUMBER__</span>",
+      "kz": "<span style='color: green''>ДАУЫС ШЫҒЫҢЫЗДАР</span><br>БӨЛМЕҢІЗДІҢ НӨМІРІ</br>__NUMBER__</span>"
+    }
+  },
+  "buttons": [
+    {
+      "id": 1,
+      "style": "width: 100%; height: calc(100% / 2); min-height: 375px; font-size: 400%; text-align: center; text-transform: uppercase;",
+      "queue": 0,
+      "service": {},
+      "windows": [],
+      "title": {
+        "ru": "ЗАПЧАСТИ НА КОРЕЙСКИЕ И ЯПОНСКИЕ АВТО",
+        "kz": "КОРЕЯ ЖӘНЕ ЖАПОН КӨЛІКТЕРІНЕ ҚОСЫМША БӨЛШЕКТЕР"
+      },
+      "child": [
+        {
+          "id": 3,
+          "style": "width: 100%; height: calc(100% / 2); min-height: 350px; font-size: 200%; text-align: center; text-transform: uppercase;",
+          "queue": 100,
+          "service": {
+            "ru": "УСЛУГА: ЭКСПРЕСС КАССА",
+            "kz": "ҚЫЗМЕТ: ЭКСПРЕСС ТЕКСЕРУ"
+          },
+          "windows": [
+            5
+          ],
+          "title": {
+            "ru": "<span style='color: red;'>ЭКСПРЕСС КАССА</span></br><span>(ФИЛЬТР, МАСЛО, КОЛОДКИ)</span>",
+            "kz": "<span style='color: red;'>ЭКСПРЕСС ТЕКСЕРУ</span></br><span>(СҮЗГІ, МАЙ, ПОДЕКС)</span>"
+          },
+          "child": []
+        }, {
+          "id": 4,
+          "style": "width: 100%; height: calc(100% / 2); min-height: 350px; font-size: 200%; text-align: center; text-transform: uppercase;",
+          "queue": 200,
+          "service": {
+            "ru": "УСЛУГА: ЗАПЧАСТИ",
+            "kz": "ҚЫЗМЕТ: ҚОСАЛҚЫ БӨЛШЕКТЕР"
+          },
+          "windows": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "title": {
+            "ru": "ЗАПЧАСТИ",
+            "kz": "ҚОСАЛҚЫ БӨЛШЕКТЕР"
+          },
+          "child": []
+        }
+      ]
+    }, {
+      "id": 2,
+      "style": "width: 100%; height: calc(100% / 2); min-height: 375px; font-size: 200%; text-align: center; text-transform: uppercase;",
+      "queue": 300,
+      "service":{
+        "ru": "УСЛУГА: САМОВЫВОЗ",
+        "kz": "ҚЫЗМЕТ: АЛА КЕТУ"
+      },
+      "windows": [
+        6
+      ],
+      "title": {
+        "ru": "<span>ЗАКАЗЫ С ИНТЕРНЕТ МАГАЗИНА</br><span style='color: red;'>(САМОВЫВОЗ)</br>(FE.KZ)</span></span>",
+        "kz": "<span>ИНТЕРНЕТ ДҮКЕНІНДЕГІ ТАПСЫРЫСТАР</br><span style='color: red;'>(АЛА КЕТУ)</br>(FE.KZ)</span></span>"
+      },
+      "child": []
+    }
+  ]
+}

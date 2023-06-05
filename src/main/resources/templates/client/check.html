@@ -1,0 +1,97 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <!-- -------------------------------------------------------------- -->
+    <link rel="icon" href="/images/favicon.png">
+    <!-- -------------------------------------------------------------- -->
+    <link rel="stylesheet" href="/asserts/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/asserts/application.css">
+    <!-- -------------------------------------------------------------- -->
+    <title>Чек</title>
+    <!-- -------------------------------------------------------------- -->
+    <style>
+        .subContainer {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .subRow {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <!-- -------------------------------------------------------------- -->
+</head>
+<body>
+<div class="container">
+    <!-- ---------------------------------------------------------- -->
+    <div class="row">
+        <div class="col w-100">
+            <img id="logo" class="rounded mx-auto d-block" src="/images/logo.png">
+        </div>
+    </div>
+    <div class="subContainer">
+        <!-- ---------------------------------------------------------- -->
+        <div class="subRow" style="margin-top: -100px;">
+            <div class="col-12 text-center">
+                <span th:style="${{style}}">
+                    <th:block th:utext="${{check}}"></th:block>
+                </span>
+            </div>
+        </div>
+        <div class="subRow" style="margin-top: 200px;">
+            <div class="col-12 text-center">
+                <img src="/images/down.png">
+            </div>
+        </div>
+    </div>
+    <!-- ---------------------------------------------------------- -->
+</div>
+<!-- -------------------------------------------------------------- -->
+<script src="/asserts/jquery/jquery-3.6.3.js"></script>
+<script src="/asserts/bootstrap/js/bootstrap.js"></script>
+<!-- -------------------------------------------------------------- -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const lang = new URLSearchParams(window.location.search).get('lang');
+    setInterval(function() {
+        $.ajax({
+            url: "/api/print"
+        }).done(function(data, textStatus, xhr) {
+            if (xhr.status === 200) {
+                $.ajax({
+                    url: "/client/print?lang=" + lang
+                }).done(function(data, textStatus, xhr) {
+                    if (xhr.status === 200) {
+                        const iframe = document.createElement('iframe');
+
+                        document.body.appendChild(iframe);
+
+                        $("iframe").css('visibility', 'hidden');
+
+                        iframe.contentWindow.document.open();
+                        iframe.contentWindow.document.write(data);
+                        iframe.contentWindow.document.close();
+
+                        document.getElementsByTagName('iframe')[0].contentWindow.print();
+
+                        document.body.removeChild(iframe);
+
+                        setTimeout(function() {
+                            window.location.href='/client';
+                        }, [[${delay}]]);
+                    }
+                }).fail(function (jqXHR, exception) { });
+            }
+        }).fail(function (jqXHR, exception) { });
+    }, 1000);
+    /*]]>*/
+</script>
+<!-- -------------------------------------------------------------- -->
+</body>
+</html>

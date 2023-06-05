@@ -1,0 +1,39 @@
+<!-- -------------------------------------------------------------- -->
+<th:block xmlns:th="">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        /*************************************************************/
+        $( document ).ready(function() {
+            /*********************************************************/
+            $("#logo").on( "click", function() {
+                window.location.reload();
+            });
+            /*********************************************************/
+            $(".main").on( "click", function() {
+                $("[data-id='" + $(this)[0].id + "']").each(function(i, obj) {
+                    $(obj).css('display', 'block');
+                    $(obj).css('visibility', '');
+                });
+
+                $(".up").each(function(i, obj) {
+                    $(obj).css('display', 'none');
+                    $(obj).css('visibility', 'hidden');
+                });
+            });
+            /*********************************************************/
+        });
+        /*************************************************************/
+        setInterval(function() {
+            $.ajax({
+                url: "/api/reload/get/client"
+            }).done(function(data, textStatus, xhr) {
+                if (xhr.status === 200) {
+                    window.location.reload();
+                }
+            }).fail(function (jqXHR, exception) { });
+        }, 5000);
+        /*************************************************************/
+        /*]]>*/
+    </script>
+</th:block>
+<!-- -------------------------------------------------------------- -->
