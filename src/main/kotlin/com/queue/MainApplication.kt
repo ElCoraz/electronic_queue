@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 // MAC OS
-// /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --autoplay-policy=no-user-gesture-required --kiosk --kiosk-printing
+// /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --autoplay-policy=no-user-gesture-required --kiosk --kiosk-printing --start-fullscreen
 
 @EnableWebMvc
 @EnableSwagger2
