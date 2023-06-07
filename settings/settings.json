@@ -26,7 +26,7 @@
   "buttons": [
     {
       "id": 1,
-      "style": "width: 100%; height: calc(100% / 2); min-height: 375px; font-size: 400%; text-align: center; text-transform: uppercase;",
+      "style": "width: 100%; height: calc(100% / 2); min-height: 850px; font-size: 400%; text-align: center; text-transform: uppercase;",
       "queue": 0,
       "service": {},
       "windows": [],
@@ -37,7 +37,7 @@
       "child": [
         {
           "id": 3,
-          "style": "width: 100%; height: calc(100% / 2); min-height: 350px; font-size: 200%; text-align: center; text-transform: uppercase;",
+          "style": "width: 100%; height: calc(100% / 2); min-height: 800px; font-size: 200%; text-align: center; text-transform: uppercase;",
           "queue": 100,
           "service": {
             "ru": "УСЛУГА: ЭКСПРЕСС КАССА",
@@ -53,7 +53,7 @@
           "child": []
         }, {
           "id": 4,
-          "style": "width: 100%; height: calc(100% / 2); min-height: 350px; font-size: 200%; text-align: center; text-transform: uppercase;",
+          "style": "width: 100%; height: calc(100% / 2); min-height: 800px; font-size: 200%; text-align: center; text-transform: uppercase;",
           "queue": 200,
           "service": {
             "ru": "УСЛУГА: ЗАПЧАСТИ",
@@ -74,7 +74,7 @@
       ]
     }, {
       "id": 2,
-      "style": "width: 100%; height: calc(100% / 2); min-height: 375px; font-size: 200%; text-align: center; text-transform: uppercase;",
+      "style": "width: 100%; height: calc(100% / 2); min-height: 850px; font-size: 200%; text-align: center; text-transform: uppercase;",
       "queue": 300,
       "service":{
         "ru": "УСЛУГА: САМОВЫВОЗ",
