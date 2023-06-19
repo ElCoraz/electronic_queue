@@ -46,7 +46,8 @@ class QueueService {
         }
     }
 
-    fun add(window: Int): Int {
+    fun add(window: Int): HashMap<String, Int> {
+        val client : HashMap<String, Int> = HashMap()
 
         val range: HashMap<Int, Int> = getRange(window)
 
@@ -56,7 +57,7 @@ class QueueService {
 
         var index: Int = -1
 
-        if (clients.size > 0) {
+        if (this.clients.size > 0) {
             val hashMap : HashMap<Int, Int> = HashMap()
 
             for (i in 0 until this.clients.size) {
@@ -71,21 +72,17 @@ class QueueService {
                 }
             }
 
-            var selectedClient = -1
-
             if (index != -1) {
                 hashMap[window] = this.clients[index]
 
-                selectedClient = this.clients[index]
-
                 this.queue.add(hashMap)
                 this.clients.removeAt(index)
-            }
 
-            return selectedClient
+                client["client"] = this.clients[index]
+            }
         }
 
-        return 0
+        return client
     }
 
     fun getRange(window: Int): HashMap<Int, Int> {
@@ -114,6 +111,58 @@ class QueueService {
             }
         }
         return range
+    }
+
+    fun set(window: Int, client: Int): HashMap<String, Int> {
+        val result : HashMap<String, Int> = HashMap()
+
+        if (this.clients.size > 0) {
+
+            val hashMap : HashMap<Int, Int> = HashMap()
+
+            var index: Int = -1
+
+            for (i in 0 until this.clients.size) {
+                if (this.clients[i] == client) {
+                    index = i
+                    break
+                }
+            }
+
+            if (index != -1) {
+                hashMap[window] = this.clients[index]
+
+                this.queue.add(hashMap)
+                this.clients.removeAt(index)
+
+                result["client"] = client
+            }
+        }
+
+        return result
+    }
+
+    fun getRangeName(range: Int): String {
+
+        environment?.let { Settings(it).buttons }?.forEach { button ->
+            if (button.queue > 0) {
+                for (i in button.windows.indices) {
+                    if (button.queue == range) {
+                        return button.service["ru"].toString().replace("УСЛУГА:", "").trim()
+                    }
+                }
+            }
+            if (button.child.isNotEmpty()) {
+                button.child.forEach { child ->
+                    for (i in child.windows.indices) {
+                        if (child.queue == range) {
+                            return child.service["ru"].toString().replace("УСЛУГА:", "").trim()
+                        }
+                    }
+                }
+            }
+        }
+        return ""
     }
 
     fun setService(id: Int, lang: String) {
@@ -166,5 +215,23 @@ class QueueService {
 
     fun clearScoreboard(value: Boolean) {
         this.clearScoreboard = value
+    }
+
+    fun getClientList(window: Int) : HashMap<Int, String>{
+        val hashMap : HashMap<Int, String> = HashMap()
+
+        val range: HashMap<Int, Int> = getRange(window)
+
+        if (this.clients.size > 0) {
+            for (i in 0 until this.clients.size) {
+                for (j in 0 until range.size) {
+                    if (this.clients[i] >= range[j]!! && this.clients[i] <= (range[j]!! + 99)) {
+                        hashMap[this.clients[i]] = getRangeName(range[j]!!)
+                    }
+                }
+            }
+        }
+
+        return hashMap
     }
 }
