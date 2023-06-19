@@ -1,14 +1,13 @@
 package com.queue.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.queue.service.QueueService
 import com.queue.utils.AudioConcatenator
 import com.queue.utils.Settings
+import javassist.bytecode.ByteArray
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.env.Environment
-import org.springframework.http.ContentDisposition
-import org.springframework.http.HttpHeaders
-import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
+import org.springframework.http.*
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
@@ -20,7 +19,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
 import java.util.Base64.getEncoder
-import kotlin.collections.HashMap
 
 
 @ApiIgnore
@@ -54,6 +52,20 @@ class ApiController {
             }
         }
         return ResponseEntity.noContent().build()
+    }
+
+    @RequestMapping(value = ["/show"], method = [RequestMethod.GET])
+    fun show(@RequestParam(value = "window", required = false, defaultValue = "0") window: Int): ResponseEntity<String> {
+        if (queueService != null) {
+            if (queueService.clients.size > 0) {
+                val headers = HttpHeaders()
+                headers.add("Content-Type", "application/json; charset=utf-8")
+                return ResponseEntity((ObjectMapper()).writeValueAsString(queueService.getClientList(window)), headers, HttpStatus.OK)
+            } else {
+                return ResponseEntity.noContent().build()
+            }
+        }
+        return ResponseEntity.badRequest().build()
     }
 
     @RequestMapping(value = ["/reload/get/scoreboard"], method = [RequestMethod.GET])
@@ -104,8 +116,23 @@ class ApiController {
     fun get(@RequestParam(value = "window", required = false, defaultValue = "0") window: Int): ResponseEntity<String> {
         if (queueService != null) {
             if (queueService.clients.size > 0) {
-                val client = queueService.add(window)
-                return ResponseEntity.ok("{\"client\": $client}")
+                val headers = HttpHeaders()
+                headers.add("Content-Type", "application/json; charset=utf-8")
+                return ResponseEntity((ObjectMapper()).writeValueAsString(queueService.add(window)), headers, HttpStatus.OK)
+            } else {
+                return ResponseEntity.noContent().build()
+            }
+        }
+        return ResponseEntity.badRequest().build()
+    }
+
+    @RequestMapping(value = ["/set"], method = [RequestMethod.GET])
+    fun set(@RequestParam(value = "window", required = false, defaultValue = "0") window: Int, @RequestParam(value = "client", required = false, defaultValue = "0") client: Int): ResponseEntity<String> {
+        if (queueService != null) {
+            if (queueService.clients.size > 0) {
+                val headers = HttpHeaders()
+                headers.add("Content-Type", "application/json; charset=utf-8")
+                return ResponseEntity((ObjectMapper()).writeValueAsString(queueService.set(window, client)), headers, HttpStatus.OK)
             } else {
                 return ResponseEntity.noContent().build()
             }
@@ -123,7 +150,7 @@ class ApiController {
     }
 
     @RequestMapping(value = ["/play"], method = [RequestMethod.GET])
-    fun play(@RequestParam(value = "window", required = false, defaultValue = "0") window: Int, @RequestParam(value = "client", required = false, defaultValue = "0") client: Int): ResponseEntity<ByteArray> {
+    fun play(@RequestParam(value = "window", required = false, defaultValue = "0") window: Int, @RequestParam(value = "client", required = false, defaultValue = "0") client: Int): ResponseEntity<kotlin.ByteArray> {
         val byteArray = AudioConcatenator().combined(window, client)
 
         if (byteArray.size.toLong() > 0) {
@@ -141,7 +168,7 @@ class ApiController {
     }
 
     @RequestMapping(value = ["/repeat"], method = [RequestMethod.GET])
-    fun repeat(): ResponseEntity<ByteArray> {
+    fun repeat(): ResponseEntity<kotlin.ByteArray> {
         if (queueService != null) {
             if (queueService.repeat != null) {
                 val byteArray = queueService.repeat!![queueService.repeat?.keys?.first()]?.let { queueService.repeat?.keys?.first()?.let { it1 -> AudioConcatenator().combined(it1, it) } }
