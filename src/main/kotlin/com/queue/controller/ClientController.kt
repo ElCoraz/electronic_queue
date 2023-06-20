@@ -78,17 +78,4 @@ class ClientController {
         return "client/check"
     }
 
-    @RequestMapping(value = ["/client/print"], method = [RequestMethod.GET])
-    fun index(model: Model, @RequestParam(value = "lang", required = false, defaultValue = "ru") lang : String): String {
-        model.addAttribute("lang", lang)
-        model.addAttribute("number", queueService?.number)
-        model.addAttribute("service", queueService?.service)
-        model.addAttribute("datetime", (if (lang == "ru") "Время: " else "Уақыт: ") + DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm").format(LocalDateTime.now()))
-
-        queueService?.number = 0
-        queueService?.service = ""
-
-        return "client/print"
-    }
-
 }

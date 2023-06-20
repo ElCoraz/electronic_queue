@@ -16,7 +16,7 @@
     }
   },
   "check": {
-    "delay": 5,
+    "delay": 3,
     "style": "font-size: 400%; text-align: center; text-transform: uppercase; font-weight: bold;",
     "title": {
       "ru": "<span style='color: green''>ПОЖАЛУЙСТА ВОЗЬМИТЕ ТАЛОН</span><br>ВАШ НОМЕР</br>__NUMBER__</span>",

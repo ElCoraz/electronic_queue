@@ -3,22 +3,36 @@ package com.queue.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.queue.service.QueueService
 import com.queue.utils.AudioConcatenator
+import com.queue.utils.Check
+import com.queue.utils.Lang
 import com.queue.utils.Settings
-import javassist.bytecode.ByteArray
+import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.env.Environment
-import org.springframework.http.*
+import org.springframework.http.ContentDisposition
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.context.request.RequestContextHolder
+import org.springframework.web.context.request.ServletRequestAttributes
 import springfox.documentation.annotations.ApiIgnore
 import java.io.BufferedReader
+import java.io.DataOutputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
+import java.util.*
 import java.util.Base64.getEncoder
+import javax.servlet.http.HttpServletRequest
+import kotlin.collections.HashMap
 
 
 @ApiIgnore
@@ -31,6 +45,9 @@ class ApiController {
 
     @Autowired
     private val queueService: QueueService? = null
+
+    @Autowired
+    private val request: HttpServletRequest? = null
 
     @RequestMapping(value = ["/list"], method = [RequestMethod.GET])
     fun list(): HashMap<Int, Int> {
@@ -232,5 +249,46 @@ class ApiController {
         }
 
         return json.toString()
+    }
+
+    @ExperimentalStdlibApi
+    @RequestMapping(value = ["/pdf"], method = [RequestMethod.GET])
+    fun pdf(model: Model, @RequestParam(value = "lang", required = false, defaultValue = "ru") lang : String): ResponseEntity<String> {
+
+        val check = Check(Lang.valueOf(lang.uppercase()), queueService)
+
+        val base64: String = Base64.getUrlEncoder().encodeToString(check.data())
+
+        val jsonObject = JSONObject()
+
+        jsonObject.put("data", base64)
+        jsonObject.put("extension", "PDF")
+
+        val data : kotlin.ByteArray = jsonObject.toString().toByteArray(StandardCharsets.UTF_8)
+
+        val connection: HttpURLConnection = (URL("http://" + request?.remoteHost + ":3000/print")).openConnection() as HttpURLConnection
+
+        connection.requestMethod = "POST"
+
+        connection.setRequestProperty("charset", "utf-8")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.setRequestProperty("Content-Length", data.size.toString())
+
+        connection.useCaches = false
+
+        try {
+            val outputStream = DataOutputStream(connection.outputStream)
+            outputStream.write(data)
+            outputStream.flush()
+        } catch (exception: Exception) {}
+
+        if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+            return ResponseEntity.badRequest().build()
+        }
+
+        queueService?.number = 0
+        queueService?.service = ""
+
+        return ResponseEntity.ok().build()
     }
 }
